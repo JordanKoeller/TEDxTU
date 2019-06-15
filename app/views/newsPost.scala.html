@@ -1,0 +1,24 @@
+@* newsArticle Template File *@
+@import model2.Tables.NewsletterPostRow
+@import model2.Tables.TeamMemberRow
+@(post:NewsletterPostRow,poster:TeamMemberRow)
+
+
+<section class="wrapper style4 container">
+    <div class="row 150%">
+            <!-- Content -->
+        <div class="content">
+            <section><img class="image featured" src="@post.mediaLink" alt="" />
+                <header>
+                    <h3>@post.title</h3>
+                    <h2>@post.subtitle</h2>
+                    <a href="OurTeam/@poster.nameLink">
+							<h2>@poster.name</h2>
+						</a>
+						<h2>@post.dateString</h2>
+					</header>
+					<p>@post.description</p>
+				</section>
+			</div>
+	</div>
+</section>

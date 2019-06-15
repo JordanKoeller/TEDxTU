@@ -1,0 +1,14 @@
+@(imgs:Seq[(String,String)])
+
+<section class="wrapper style1 container special">
+    <div class="row">
+        <div class="col-4 col-12-narrower">
+            <section>
+		    @for(elem <- imgs) {
+                  <a class="image featured" target="_blank" href="@elem._1"><img src="@elem._2" style="background-color:#ddd;border-radius:25px;padding:20px;max-width:600px;"></a>
+		}
+            </section>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET        /                            controllers.Application.upcomingEvent
+GET        /AboutTed                    controllers.Application.aboutTed
+GET        /Sponsors                    controllers.Application.sponsors
+GET        /OurTeam						controllers.Application.ourTeam
+POST        /submitMemberForm           controllers.Application.postMember
+POST        /submitEventForm            controllers.Application.addEventToDB
+POST        /submitNewsletterForm       controllers.Application.postArticle
+GET         /Events                     controllers.Application.upcomingEvent
+GET         /Feed                       controllers.Application.newsFeed
+GET         /becomeASpeaker             controllers.Application.speakerForm
+#GET        /Events/Speaker/:id          controllers.Application.speaker(id:Int)
+# Prefix must match `play.assets.urlPrefix`
+
+GET        /assets/*file                 controllers.Assets.at(file)
+GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+

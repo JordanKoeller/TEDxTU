@@ -1,0 +1,22 @@
+@(actionLink:String)
+
+<form action="@actionLink">
+    <div class="row gtr-50">
+        <div class="col-6 col-12-mobile">
+            <input type="text" name="name" placeholder="Name" />
+        </div>
+        <div class="col-6 col-12-mobile">
+            <input type="email" name="email" placeholder="Email" />
+        </div>
+        <!-- <div class="col-12">
+            <input type="text" name="subject" placeholder="Subject" />
+        </div> -->
+        <div class="col-12">
+            <ul class="buttons">
+                <li><input type="submit" 
+                    class="special" 
+                    value="Send Message"/></li>
+            </ul>
+        </div>
+    </div>
+</form>

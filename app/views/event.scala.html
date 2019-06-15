@@ -1,0 +1,66 @@
+@import model2.Tables.EventRow
+@import model2.Tables.SpeakersRow
+@(event:EventRow,speakers:Seq[SpeakersRow])
+
+<section class="wrapper style4 container">
+	@*<div class="row 150%">*@
+		<!-- Sidebar -->
+		<div class="content">
+			<section>
+				<header>
+					<h2>@event.title</h2>
+					@if(event.subtitle.isDefined) {
+					<h3>@event.subtitle.get</h3>
+					}
+
+				</header>
+			</section>
+		</div>
+
+		<div class="row gtr-150">
+			<div class="5u 11u(narrower)">
+				<div class="sidebar">
+					<section>
+						<header>
+						</header>
+						<p>@event.description</p>
+					</section>
+				</div>
+			</div>
+			<div class="7u 11u(narrower) important(narrower)">
+				<div class="content">
+					<section>
+						@if(event.mediaLink.isDefined) {
+						<a href="#" class="image featured"><img src="@event.mediaLink.get" alt=""/></a>
+						}
+					</section>
+				</div>
+			</div>
+		</div>
+
+		<div class="row gtr-150">
+			<div class="5u 11u(narrower)">
+				<div class="sidebar">
+					<section>
+						<header>
+							<p> </p>
+							<ul>
+								<li></li>
+								<li><h3>Date: @event.dateString</h3></li>
+								<li><h3>Time: @event.timeString</h3></li>
+								<li><h3>Location: @event.venue</h3></li>
+							</ul>
+						</header>
+					</section>
+				</div>
+			</div>
+			<div class="6u 10u(narrower) important(narrower)">
+				<div class="content">
+
+					@if(event.takenSeats < event.maxSeats) {
+					<script src="https://web-cdn.fixr.co/scripts/fixr-shop-widget.v1.min.js" data-fixr-shop-id="9f88a818-f3f7-4032-8473-e0d9ea7703ef" data-fixr-theme="light"></script>
+					}
+				</div>
+			</div>
+		</div>
+</section>
