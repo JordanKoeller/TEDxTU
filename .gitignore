@@ -14,3 +14,7 @@ server.pid
 *.eml
 /dist/
 .cache
+.bloop/
+.metals/
+.env
+project/.bloop

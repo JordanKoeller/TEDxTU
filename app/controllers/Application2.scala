@@ -152,9 +152,23 @@ class Application @Inject() (
   }
 
   def speakerForm = Action {
-    val link = "/speakerForm"
+    val link = "/becomeASpeaker"
     Ok(views.html.main("Interested in giving a talk?",views.html.speakerForm(link)))
   }
 
+  def sponsorForm = Action {
+    val link = "/becomeASpeaker"
+    Ok(views.html.main("Become a Sponsor",views.html.speakerForm(link)))
+  }
+
+  def volunteerForm = Action {
+    val link = "/becomeASpeaker"
+    Ok(views.html.main("Become a Volunteer",views.html.speakerForm(link)))
+  }
+
+  def teamForm = Action {
+    val link = "/becomeASpeaker"
+    Ok(views.html.main("Join our Team",views.html.speakerForm(link)))
+  }
 
 }
