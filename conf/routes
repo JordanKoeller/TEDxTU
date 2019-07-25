@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET        /                            controllers.Application.index
+GET        /                            controllers.Application.upcomingEvent
 GET        /AboutTed                    controllers.Application.aboutTed
 GET        /Sponsors                    controllers.Application.sponsors
 GET        /OurTeam						controllers.Application.ourTeam
