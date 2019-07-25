@@ -10,6 +10,7 @@ import play.api.mvc.AbstractController
 import play.api.mvc.ControllerComponents
 import play.twirl.api.Html
 import model2.Tables._
+import model2.Sponsor
 
 @Singleton
 class Application @Inject() (
@@ -74,19 +75,18 @@ class Application @Inject() (
   def index = Action {
     val title = "This is a test of the view"
     val body = new Html("<p>This is a test area.</p>")
-    Ok(views.html.main(title,body))
+    Ok(prettyViews.html.main(title,body))
   }
 
   def ourTeam = Action.async {
     val idOrder = Array(47,2,43,46,1,38)
     val members = db.run(TeamMember.filter(_.isActive === 1).result)
-    members.map{ret =>
+    members.map{ret => 
       val (leaders,rest) = ret.seq.partition(e => idOrder.contains(e.id))
       val sortedLeaders = idOrder.map(id => leaders.seq.find(_.id == id).get)
-      val page = (sortedLeaders ++ rest.toArray.sortBy(_.name.split(" ").last)).foldLeft(new Html("")){(old:Html,member:TeamMemberRow) =>
-        new Html(old.body + views.html.namecard(member))
-      }
-      Ok(views.html.main("Our Team",page))
+      val memberArray = (sortedLeaders ++ rest.toArray.sortBy(_.name.split(" ").last))
+      Ok(prettyViews.html.main("Our Team", prettyViews.html.memberNamecard(memberArray)))
+      // Ok(prettyViews.html.main("Our Team",page))
     }
   }
 
@@ -104,13 +104,13 @@ class Application @Inject() (
         val view = views.html.newsPost(post,poster)
         new Html(old.body + view)
       }
-      Ok(views.html.main("Newsletter",page))
+      Ok(prettyViews.html.main("Newsletter",page))
     }
   }
 
   def aboutTed = Action {
-    val content = views.html.aboutTed()
-    Ok(views.html.main("About TED",content))
+    val content = prettyViews.html.aboutTed()
+    Ok(prettyViews.html.main("About TEDx",content))
   }
   //
   def upcomingEvent = Action.async {
@@ -119,56 +119,41 @@ class Application @Inject() (
       val query = db.run(joined.result)
       query.map{q =>
         val events = q.groupBy(_._1.id)
-        val pages = events.foldLeft(new Html("")){(html,kv) =>
+        val kv = events.head
           //          val speakers = kv._2.flatMap{e => Seq(e._2.getOrElse(null))}.filter(_ != null).sortBy(_.name.split(" ").last)
           val speaks = kv._2.flatMap{e => Seq(e._2.getOrElse(null))}.filter(_ != null).sortBy(_.name.split(" ").last)
           val banned = Array(24)
-          val speakers = speaks.filterNot(elem => banned.contains(elem.speakerId))
-          val speakerCards = views.html.speakernamecard(speakers.head,true) +: speakers.tail.map(e => views.html.speakernamecard(e,false))
-          val pg = views.html.event(kv._2.head._1,speakers)
-          val speakerCardsHtml = speakerCards.foldLeft(new Html("")){(h1,k1) => new Html(h1.body + k1.body)}
-          new Html(html.body + pg.body + speakerCardsHtml)
+          val speakers = speaks.filterNot(elem => banned.contains(elem.speakerId)).toArray
+
+          // val speakerCards = views.html.speakernamecard(speakers.head,true) +: speakers.tail.map(e => views.html.speakernamecard(e,false))
+          // val pg = views.html.event(kv._2.head._1,speakers)
+          // val speakerCardsHtml = speakerCards.foldLeft(new Html("")){(h1,k1) => new Html(h1.body + k1.body)}
+          // new Html(html.body + pg.body + speakerCardsHtml)
+          Ok(prettyViews.html.main("Upcoming Events",prettyViews.html.event( kv._2.head._1, speakers)))
         }
-        Ok(views.html.main("Upcoming Events", pages))
       }
-    }
     catch {
       case e: java.lang.UnsupportedOperationException => Future {
-        Ok(views.html.main("No Upcoming Events", new Html("")))
+        Ok(prettyViews.html.main("No Upcoming Events", new Html("")))
       }
     }
   }
 
 
   def sponsors = Action {
-    val allSponsors = Seq(
-       ("https://new.trinity.edu/","assets/images/TULogo.png"),
-       ("https://www.assistingseniors.com/","assets/images/Bertsch.png"),
-       ("https://inside.trinity.edu/get-involved/student-organizations/university-sponsored-organizations/student-government-association","assets/images/SGA.png"),
-       ("https://new.trinity.edu/academics/majors-minors/entrepreneurship","assets/images/entrepenuership-final.png"),
-       ("https://companiestx.com/company/32054545481/aumm-inc","assets/images/aummLogo.jpg"),
+    val allSponsors = Array(
+       Sponsor("Trinity University", "https://new.trinity.edu/","assets/images/TULogo.png"),
+       Sponsor("The Law Office of Carol Bertsch, PC", "https://www.assistingseniors.com/","assets/images/Bertsch.png"),
+       Sponsor("Trinity University Student Government Association","https://inside.trinity.edu/get-involved/student-organizations/university-sponsored-organizations/student-government-association","assets/images/SGA.png"),
+       Sponsor("Trinity University Entrepreneurship Department","https://new.trinity.edu/academics/majors-minors/entrepreneurship","assets/images/entrepenuership-final.png"),
+       Sponsor("Aumm Inc.", "https://companiestx.com/company/32054545481/aumm-inc","assets/images/aummLogo.jpg"),
       )
-    Ok(views.html.main("Sponsors",views.html.CaptionedImage(allSponsors)))
+    Ok(prettyViews.html.main("Sponsors",prettyViews.html.sponsors(allSponsors)))
   }
 
-  def speakerForm = Action {
-    val link = "/becomeASpeaker"
-    Ok(views.html.main("Interested in giving a talk?",views.html.speakerForm(link)))
+  def getInvolved = Action {
+    Ok(prettyViews.html.main("Get Involved",prettyViews.html.getInvolved()))
   }
 
-  def sponsorForm = Action {
-    val link = "/becomeASpeaker"
-    Ok(views.html.main("Become a Sponsor",views.html.speakerForm(link)))
-  }
-
-  def volunteerForm = Action {
-    val link = "/becomeASpeaker"
-    Ok(views.html.main("Become a Volunteer",views.html.speakerForm(link)))
-  }
-
-  def teamForm = Action {
-    val link = "/becomeASpeaker"
-    Ok(views.html.main("Join our Team",views.html.speakerForm(link)))
-  }
 
 }

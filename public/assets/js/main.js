@@ -181,5 +181,7 @@
 						$menu._hide();
 
 			});
+	
+	// Fix image scaling. Added by JKoeller
 
 })(jQuery);

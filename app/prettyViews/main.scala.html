@@ -1,0 +1,120 @@
+@(title: String, content: Html, subtitle:Option[Html]=None)
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>TEDxTrinityUniversity</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" href="@routes.Assets.versioned(" images/favicon.png")" type="image/png" sizes="20x20">
+    <link rel="stylesheet" href="@routes.Assets.versioned("css/main.css")" />
+    <noscript>
+        <link rel="stylesheet" href="@routes.Assets.versioned("css/noscript.css")" /></noscript>
+</head>
+
+<body class="is-preload">
+    <div id="wrapper">
+        <header id="header" class="off-sides">
+            <div class="inner">
+                <!-- <h1 id="logo">
+                        <a href="/"><img src="@routes.Assets.versioned("images/TEDxTrinityLogo.png")" alt="TEDxTrinity" style="width: 180px; height: 65px;"/></a>
+                    </h1> -->
+                <a href="/" class="logo">
+                    <span class="symbol">
+                        <img id="TEDLogo" src="@routes.Assets.versioned("images/TEDxLogoNoBackground.png")" alt=""/>
+                    </span>
+                    <!-- Optional extra part of the logo. -->
+                    <!-- <span class="title"> 
+                            TEDxTrinity
+                        </span> -->
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </header>
+
+        <nav id="menu">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="/Events">Events</a></li>
+                <li><a href="/Feed">Newsletter</a></li>
+                <li><a href="/Sponsors">Sponsors</a></li>
+                <li><a href="/AboutTed">About TEDx</a></li>
+                <li><a href="/OurTeam">Our Team</a></li>
+                <li><a href="/GetInvolved">Get Involved</a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <div class="inner">
+                <header>
+                    <h1 class="article-title">
+                        @title
+                        <!-- Where I insert the title with play's scala bindings.-->
+                    </h1>
+                    @if(subtitle.isDefined) {
+                    <h2>@subtitle.get</h2>
+                    }
+                </header>
+
+            </div>
+        </div>
+        <div id="content">
+
+            @content
+        </div>
+
+        <footer id="footer">
+            <div class="inner">
+                <section>
+                    <h2>What is TEDx?</h2>
+                    <p>
+                        In the spirit of ideas worth spreading, TED has
+                        created a program called TEDx. TEDx is a program
+                        of local, self-organized events that bring people
+                        together to share a TED-like experience. Our
+                        event is called TEDxTrinityUniversity, where x = independently
+                        organized TED event. At our TEDxTrinityUniversity event, TED
+                        Talks video and live speakers will combine to spark
+                        deep discussion and connection in a small group.
+                        The TED Conference provides general guidance for
+                        the TEDx program, but individual TEDx events,
+                        including ours, are self-organized.
+                    </p>
+                </section>
+                <section>
+                    <h2>Follow Us</h2>
+                    <ul class="icons">
+                        <li><a target="_blank" href="https://twitter.com/TEDxTrinity" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.facebook.com/TEDx-TrinityUniversity-1426178967512253/?modal=admin_todo_tour" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a>
+                        </li>
+                        <li><a target="_blank" href="https://www.instagram.com/tedxtrinityuniversity/" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a>
+                        </li>
+                        <!-- <li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a>
+                        </li>
+                        <li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+                        <li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+                        <li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+                        <li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li> -->
+                    </ul>
+                </section>
+                <ul class="copyright">
+                    <li>&copy; Untitled. All rights reserved</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <!-- Scripts -->
+    <script src="@routes.Assets.versioned("assets/js/jquery.min.js")"> </script> 
+    <script src="@routes.Assets.versioned("assets/js/browser.min.js")"> </script>
+    <script src="@routes.Assets.versioned("assets/js/breakpoints.min.js")"> </script>
+    <script src="@routes.Assets.versioned("assets/js/util.js")"></script>
+    <script src="@routes.Assets.versioned("assets/js/main.js")"> </script>
+</body>
+</html>

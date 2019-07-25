@@ -8,8 +8,8 @@
         </encoder>
     </appender>
 
-    <logger name="slick" level="INFO" />
-    <logger name="slick.jdbc" level="DEBUG" />
+    <logger name="slick" level="ERROR" />
+    <logger name="slick.jdbc" level="ERROR" />
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>

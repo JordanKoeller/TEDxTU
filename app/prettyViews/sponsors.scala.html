@@ -1,0 +1,36 @@
+@import model2.Sponsor 
+@(sponsors:Array[Sponsor])
+
+<section class="tiles">
+    @for(sponsor <- sponsors) { <article class="style1">
+        <span class="image memberCard"
+        style="background-color:white; padding: 1em 1em; background-image: none;"">
+                <img class="memberimg" src="@sponsor.logoLink" alt="">
+            <!-- Ideal dims: 412 x 618 -->
+        </span>
+        <a href="@sponsor.link">
+            <div class="content">
+                <h2>
+                    @sponsor.name
+                </h2>
+            </div>
+        </a>
+        </article>
+        }
+</section>
+
+<script>
+    window.addEventListener('load',function() {
+        let myCollection = document.getElementsByClassName("image");
+        var i;
+        var maxHeight = -1;
+        for (i = 0; i < myCollection.length; i++) {
+            if (myCollection[i].clientHeight > maxHeight) {
+                maxHeight = myCollection[i].clientHeight
+            }
+        }
+        for (i = 0; i < myCollection.length; i++) {
+            myCollection[i].style.height = "" + maxHeight + "px";
+        }
+    });
+    </script>

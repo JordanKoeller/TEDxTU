@@ -8,7 +8,7 @@ resolvers += Resolver.jcenterRepo
 resolvers += Resolver.sonatypeRepo("snapshots")
 //resolvers += "Kaliber Internal Repository" at "https://jars.kaliber.io/artifactory/libs-release-local"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.8"
 
 libraryDependencies ++= Seq(
                 guice,

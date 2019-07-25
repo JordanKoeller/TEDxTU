@@ -1,0 +1,68 @@
+@import model2.Tables.EventRow
+@import model2.Tables.SpeakersRow
+@(event:EventRow,speakers:Seq[SpeakersRow])
+
+<div class="tilecard">
+    <h2>
+        @event.title
+    </h2>
+    @if(event.subtitle.isDefined) {
+        <h3>
+            @event.subtitle.get
+        </h3>
+    }
+    <p>
+        @if(event.mediaLink.isDefined) {
+            <span class="image left"><img src="@event.mediaLink"></span>
+        }
+        @event.description
+    </p>
+    <p>
+    </p>
+    <ul class="alt">
+        <li></li>
+        <li><h3>Date: @event.dateString</h3></li>
+        <li><h3>Time: @event.timeString</h3></li>
+        <li><h3>Location: @event.venue</h3></li>
+        <li></li>
+    </ul>
+    @if(event.takenSeats < event.maxSeats) {
+        <script src="https://web-cdn.fixr.co/scripts/fixr-shop-widget.v1.min.js" data-fixr-shop-id="9f88a818-f3f7-4032-8473-e0d9ea7703ef" data-fixr-theme="light"></script>
+        }
+</div>
+@for(speaker <- speakers) {
+    <div class="tilecard">
+        <h2>@speaker.name</h2>
+        <p>
+        @if(math.random() < 0.5) {
+            <span class="image left"><img class="speakerImg" src="@speaker.media"></span>
+        } else {
+            <span class="image right"><img class="speakerImg" src="@speaker.media"></span>
+        }
+        @speaker.bio
+    </p>
+    </div>
+}
+
+<script>
+
+window.addEventListener('load',function() {
+    let myCollection = document.getElementsByClassName("speakerImg");
+    var i;
+    for (i = 0; i < myCollection.length; i++) {
+        if (myCollection[i].parentNode.parentNode.clientHeight < myCollection[i].clientHeight) {
+            let ratio = myCollection[i].naturalHeight / myCollection[i].naturalWidth;
+            let rawHeight = myCollection[i].parentNode.parentNode.clientHeight;
+            myCollection[i].style.height = "" + rawHeight * 0.9 + "px";
+            myCollection[i].style.width  = "" + (rawHeight / ratio * 0.9)+ "px";
+         }
+     }
+ //your code here
+});
+
+
+
+//     document.addEventListener('DOMContentLoaded', function() {
+//    // your code here
+//     }, false);
+</script>
