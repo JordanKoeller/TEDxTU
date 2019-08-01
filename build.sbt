@@ -24,6 +24,8 @@ libraryDependencies ++= Seq(
                 "net.codingwell" %% "scala-guice" % "4.1.1",
                 "com.iheart" %% "ficus" % "1.4.1",
                 "com.typesafe.slick" %% "slick-hikaricp" % "3.2.1",
+                "com.typesafe.play" %% "play-mailer" % "6.0.1",
+                "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
 //                "net.kaliber" %% "play-s3" % "9.0.0"
 
         )

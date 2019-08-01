@@ -1,28 +1,29 @@
 @()
 <div class="tilecard">
     <section>
-        <form method="post" action="#">
+        <form method="post" action="/PostMethod">
             <div class="row gtr-uniform">
                 <div class="col-12">
-                    <select name="demo-category" id="demo-category">
-                        <option value="1">Become a Sponsor</option>
-                        <option value="1">Volunteer at an Event</option>
-                        <option value="1">Join our Team</option>
-                        <option value="1">Give a Talk</option>
+                    <select name="category" id="category">
+                        <option value="Not Selected">Select Message Type</option>
+                        <option value="Become a Sponsor">Become a Sponsor</option>
+                        <option value="Volunteer at Event">Volunteer at an Event</option>
+                        <option value="Join our Team">Join our Team</option>
+                        <option value="Give a Talk">Give a Talk</option>
                     </select>
                 </div>
                 <div class="col-6 col-12-xsmall">
-                    <input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+                    <input type="text" name="name" id="name" value="" placeholder="Name" />
                 </div>
                 <div class="col-6 col-12-xsmall">
-                    <input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+                    <input type="email" name="email" id="email" value="" placeholder="Email" />
                 </div>
                 <div class="col-6 col-12-small">
-                    <input type="checkbox" id="demo-copy" name="demo-copy">
-                    <label for="demo-copy">Email me a copy</label>
+                    <input type="checkbox" id="copy" name="copy">
+                    <label for="copy">Email me a copy</label>
                 </div>
                 <div class="col-12">
-                    <textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+                    <textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
                 </div>
                 <div class="col-12">
                     <ul class="actions">

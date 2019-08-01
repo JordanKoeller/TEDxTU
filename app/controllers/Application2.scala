@@ -11,11 +11,13 @@ import play.api.mvc.ControllerComponents
 import play.twirl.api.Html
 import model2.Tables._
 import model2.Sponsor
+import play.api.libs.mailer.MailerClient
 
 @Singleton
 class Application @Inject() (
                               protected val dbConfigProvider: DatabaseConfigProvider,
-                              cc: ControllerComponents)(implicit ec:ExecutionContext)
+                              cc: ControllerComponents,
+                              mailerClient: MailerClient)(implicit ec:ExecutionContext)
   extends AbstractController(cc)  {
   import profile.api._
   val db = Database.forConfig("mydb")
@@ -40,6 +42,25 @@ class Application @Inject() (
     val member = formAccepter.parseMember(info.get)
     db.run(TeamMember += member)
     Ok
+  }
+
+  def postGetInvolved = Action { request => 
+    val info = request.body.asFormUrlEncoded.get.map{elem =>
+      (elem._1, elem._2.head)
+    }
+    println(info)
+    val service = new MailerService(mailerClient)
+    service.sendEmail(
+      info("name") + " wants to " + info("category") + "!",
+      info("name") + " (" + info("email") + ") wants to " + info("category") + ". Here is what they said.\n\n" + info("message"),
+      "TEDxTrinityUniversity",
+      "tedxtrinityuniversity@gmail.com",
+      "TEDxTrinityUniversity",
+      "tedxtrinityuniversity@gmail.com",
+      if (info("copy") == "on") info("email") else ""
+    )
+    Redirect(routes.Application.getInvolvedSuccess())
+    // Redirect(prettyViews.html.main("Get Involved",prettyViews.html.getInvolved()))
   }
 
   def postArticle = Action { request =>
@@ -153,6 +174,10 @@ class Application @Inject() (
 
   def getInvolved = Action {
     Ok(prettyViews.html.main("Get Involved",prettyViews.html.getInvolved()))
+  }
+
+  def getInvolvedSuccess = Action {
+    Ok(prettyViews.html.main("Form Submitted",new Html("<p> If you copied yourself, make sure to check your spam folder.</p>")))
   }
 
 

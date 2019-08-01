@@ -7,7 +7,7 @@ resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releas
 libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
 
 // Sbt plugins
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.6")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.3")
 
 //addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.20")
 

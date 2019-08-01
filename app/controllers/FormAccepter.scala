@@ -17,11 +17,13 @@ class FormAccepter(profile: JdbcProfile) {
   sealed case class SpeakerSeqMapper(speakers:Seq[SpeakerJSMapper])
   sealed case class TeamMemberConverter(name:String,position:String,major:String,year:Int,bio:String,mediaURL:String,email:String)
   sealed case class NewspostJSMapper(title:String,subtitle:String,`abstract`:String,body:String,media:String,email:String)
+  sealed case class GetInvolvedJSMapper(category: String, name: String, email: String, copy: String, message: String)
   implicit val eventConverter = Json.reads[EventJSMapper]
   implicit val speakerConverter = Json.reads[SpeakerJSMapper]
   implicit val speakerCol = Json.reads[SpeakerSeqMapper]
   implicit val teamMemberConverter = Json.reads[TeamMemberConverter]
   implicit val newspostConverter = Json.reads[NewspostJSMapper]
+  implicit val getInvolvedConverter = Json.reads[GetInvolvedJSMapper]
 
   def parseEvent(js:JsValue):EventRow = {
     val jsMapper:JsResult[EventJSMapper] = Json.fromJson[EventJSMapper](js)
@@ -99,6 +101,18 @@ class FormAccepter(profile: JdbcProfile) {
       case e: JsError =>
         println("Failed parsing the newsarticle")
         null
+    }
+  }
+
+  def parseGetInvolved(js: JsValue) = {
+    val jsMapper: JsResult[GetInvolvedJSMapper] = Json.fromJson[GetInvolvedJSMapper](js)
+    jsMapper match {
+      case JsSuccess(item: GetInvolvedJSMapper, path: JsPath) =>
+        null
+      case JsError(errors) => 
+        println("Failed to parse get involved")
+        null
+        // val emailer = new SimpleEmail()
     }
   }
 }

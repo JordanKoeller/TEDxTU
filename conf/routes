@@ -10,9 +10,11 @@ GET        /OurTeam						controllers.Application.ourTeam
 POST       /submitMemberForm            controllers.Application.postMember
 POST       /submitEventForm             controllers.Application.addEventToDB
 POST       /submitNewsletterForm        controllers.Application.postArticle
+POST       /PostMethod                  controllers.Application.postGetInvolved
 GET        /Events                      controllers.Application.upcomingEvent
 GET        /Feed                        controllers.Application.newsFeed
-GET        /GetInvolved               controllers.Application.getInvolved
+GET        /GetInvolved                 controllers.Application.getInvolved
+GET        /GetInvolvedSubmitted        controllers.Application.getInvolvedSuccess
 #GET       /Events/Speaker/:id          controllers.Application.speaker(id:Int)
 # Prefix must match `play.assets.urlPrefix`
 
